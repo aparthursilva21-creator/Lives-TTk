@@ -1,0 +1,40 @@
+[
+  {
+    "id": "vela",
+    "word": "Vela",
+    "category": "Objetos",
+    "round": 1,
+    "usedAt": "2026-11-12T19:46:37.672Z",
+    "result": "acertada",
+    "winner": "Voce_Teste",
+    "finishedAt": "2026-11-12T19:48:37.806Z"
+  },
+  {
+    "id": "submarino",
+    "word": "Submarino",
+    "category": "Veículos",
+    "round": 2,
+    "usedAt": "2026-11-12T19:48:43.826Z",
+    "result": "interrompida",
+    "winner": null
+  },
+  {
+    "id": "flor",
+    "word": "Flor",
+    "category": "Natureza",
+    "round": 3,
+    "usedAt": "2026-11-12T19:49:28.727Z",
+    "result": "acertada",
+    "winner": "Voce_Teste",
+    "finishedAt": "2026-11-12T19:50:28.888Z"
+  },
+  {
+    "id": "aviao",
+    "word": "Avião",
+    "category": "Veículos",
+    "round": 4,
+    "usedAt": "2026-11-12T19:50:34.906Z",
+    "result": "em_andamento",
+    "winner": null
+  }
+]

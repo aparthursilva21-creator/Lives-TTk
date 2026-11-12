@@ -1,0 +1,17 @@
+2026-11-12T19:46:37.666Z [INFO] Servidor em http://localhost:3000  (tela do jogo)
+2026-11-12T19:46:37.670Z [INFO] Painel admin: http://localhost:3000/admin.html#6a5c4da7daa6c65020495fd94898e009f103
+2026-11-12T19:46:37.671Z [INFO] Live iniciada
+2026-11-12T19:46:37.679Z [INFO] RODADA 1 | Vela (Objetos, medio) | 120s
+2026-11-12T19:46:37.671Z [INFO] Palavras: 55 disponíveis de 216 (0 já usadas)
+2026-11-12T19:47:35.782Z [INFO] ACERTO #1: @Voce_Teste (+100)
+2026-11-12T19:48:37.811Z [INFO] Fim da rodada 1: timeout | 1 acerto(s)
+2026-11-12T19:48:43.835Z [INFO] RODADA 2 | Submarino (Veículos, medio) | 120s
+2026-11-12T19:49:28.721Z [INFO] Servidor em http://localhost:3000  (tela do jogo)
+2026-11-12T19:49:28.726Z [INFO] Painel admin: http://localhost:3000/admin.html#6a5c4da7daa6c65020495fd94898e009f103
+2026-11-12T19:49:28.726Z [INFO] Palavras: 53 disponíveis de 216 (2 já usadas)
+2026-11-12T19:49:28.734Z [INFO] RODADA 3 | Flor (Natureza, facil) | 60s
+2026-11-12T19:49:28.726Z [INFO] Live iniciada
+2026-11-12T19:49:43.119Z [INFO] ACERTO #1: @Voce_Teste (+100)
+2026-11-12T19:50:28.893Z [INFO] Fim da rodada 3: timeout | 1 acerto(s)
+2026-11-12T19:50:34.914Z [INFO] RODADA 4 | Avião (Veículos, facil) | 60s
+2026-11-12T19:51:34.972Z [INFO] FIM DE JOGO na fase 4 (palavra: Avião)

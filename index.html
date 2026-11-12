@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenho Ao Vivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Ícones das ferramentas -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="ic-letter" viewBox="0 0 48 48"><rect x="5" y="5" width="38" height="38" rx="10" fill="#FFD93B" stroke="#1d1b2e" stroke-width="3"/><path d="M15 34 L24 13 L33 34 M18.5 27 H29.5" fill="none" stroke="#1d1b2e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="ic-brush" viewBox="0 0 48 48"><path d="M40 6 L22 24" stroke="#1d1b2e" stroke-width="11" stroke-linecap="round"/><path d="M40 6 L22 24" stroke="#F4A340" stroke-width="5" stroke-linecap="round"/><path d="M20 22 Q9 24 8 36 Q8 42 14 40 Q18 39 22 33 Q26 28 20 22 Z" fill="#E53935" stroke="#1d1b2e" stroke-width="3" stroke-linejoin="round"/><path d="M33 30 L44 30 M36 38 L44 38 M38 22 L46 22" stroke="#FFD93B" stroke-width="3" stroke-linecap="round"/></symbol>
+        <symbol id="ic-palette" viewBox="0 0 48 48"><path d="M24 5 C11 5 4 14 4 24 C4 35 13 43 24 43 C29 43 30 39 27 36 C24 33 26 29 31 29 H36 C41 29 44 26 44 22 C44 12 35 5 24 5 Z" fill="#C98A55" stroke="#1d1b2e" stroke-width="3" stroke-linejoin="round"/><circle cx="15" cy="22" r="4" fill="#E53935"/><circle cx="22" cy="14" r="4" fill="#FFD93B"/><circle cx="32" cy="15" r="4" fill="#4DA3F5"/><circle cx="14" cy="32" r="4" fill="#5CBF60"/></symbol>
+        <symbol id="ic-bulb" viewBox="0 0 48 48"><path d="M24 4 C14 4 9 12 11 20 C12 25 17 28 17 33 H31 C31 28 36 25 37 20 C39 12 34 4 24 4 Z" fill="#FFD93B" stroke="#1d1b2e" stroke-width="3" stroke-linejoin="round"/><path d="M18 38 H30 M20 43 H28" stroke="#1d1b2e" stroke-width="3.5" stroke-linecap="round"/><path d="M19 22 L24 28 L29 22" fill="none" stroke="#1d1b2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="gift-rose" viewBox="0 0 48 48"><path d="M24 22 Q22 34 24 45" fill="none" stroke="#1d1b2e" stroke-width="7" stroke-linecap="round"/><path d="M24 22 Q22 34 24 45" fill="none" stroke="#3FA34D" stroke-width="3.2" stroke-linecap="round"/><path d="M23 34 Q12 30 10 36 Q16 41 23 38 Z" fill="#3FA34D" stroke="#1d1b2e" stroke-width="2.5" stroke-linejoin="round"/><circle cx="24" cy="15" r="11" fill="#E53935" stroke="#1d1b2e" stroke-width="3"/><path d="M17 15 Q24 6 31 15 Q24 22 17 15 Z M20 14 Q24 11 28 14" fill="#FF6F6B" stroke="#1d1b2e" stroke-width="2" stroke-linejoin="round"/></symbol>
+        <symbol id="gift-heart" viewBox="0 0 48 48"><path d="M24 43 C5 29 3 14 13 8 C18 5 23 8 24 13 C25 8 30 5 35 8 C45 14 43 29 24 43 Z" fill="#FF5C8A" stroke="#1d1b2e" stroke-width="3" stroke-linejoin="round"/><path d="M12 14 Q14 10 19 10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+        <symbol id="gift-donut" viewBox="0 0 48 48"><ellipse cx="24" cy="25" rx="20" ry="17" fill="#D9964B" stroke="#1d1b2e" stroke-width="3"/><path d="M6 23 Q5 11 17 10 Q24 7 31 10 Q43 11 42 23 Q43 33 35 37 Q24 41 13 37 Q5 33 6 23 Z" fill="#FF8FAB" stroke="#1d1b2e" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="24" cy="24" rx="6" ry="5" fill="#fff" stroke="#1d1b2e" stroke-width="2.5"/><path d="M12 19 l4 -2 M30 14 l4 2 M33 31 l3 -3 M14 31 l3 2 M24 13 l1 -3" stroke="#FFD93B" stroke-width="2.6" stroke-linecap="round"/></symbol>
+        <symbol id="gift-perfume" viewBox="0 0 48 48"><rect x="19" y="3" width="12" height="7" rx="2" fill="#FFD93B" stroke="#1d1b2e" stroke-width="2.5"/><rect x="21" y="10" width="8" height="5" fill="#B8C4CE" stroke="#1d1b2e" stroke-width="2.5"/><rect x="9" y="15" width="32" height="30" rx="8" fill="#C59BFF" stroke="#1d1b2e" stroke-width="3"/><rect x="16" y="23" width="18" height="12" rx="3" fill="#fff" stroke="#1d1b2e" stroke-width="2"/><path d="M13 20 Q15 18 19 18" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="M33 7 l5 -3 M35 11 l6 0" stroke="#1d1b2e" stroke-width="2.5" stroke-linecap="round"/></symbol>
+        <symbol id="ic-crown" viewBox="0 0 48 48"><path d="M6 36 L4 14 L15 24 L24 8 L33 24 L44 14 L42 36 Z" fill="#FFD93B" stroke="#1d1b2e" stroke-width="3" stroke-linejoin="round"/></symbol>
+    </svg>
+
+    <div id="stage">
+        <div class="bg" id="bg"></div>
+
+        <header class="top">
+            <div class="pill"><small>FASE</small><b id="round">0</b></div>
+            <div class="timer" id="timerBox">
+                <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="42"/><circle class="progress" id="timerRing" cx="50" cy="50" r="42"/></svg>
+                <span id="timer">--</span>
+            </div>
+            <div class="pill"><small>RECORDE DA LIVE</small><b id="record">0</b></div>
+        </header>
+
+        <section class="top3" id="top3"></section>
+
+        <section class="easel">
+            <div class="leg left"></div><div class="leg right"></div><div class="leg back"></div>
+            <div class="board" id="board">
+                <svg id="drawing-svg" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet">
+                    <g id="brush" style="display:none">
+                        <g transform="rotate(35)">
+                            <path d="M0 0 L-10 -30 Q0 -40 10 -30 Z" fill="#E53935" stroke="#1d1b2e" stroke-width="4" stroke-linejoin="round"/>
+                            <rect x="-11" y="-58" width="22" height="28" fill="#B8C4CE" stroke="#1d1b2e" stroke-width="4"/>
+                            <path d="M-7 -58 L7 -58 L5 -160 L-5 -160 Z" fill="#F4A340" stroke="#1d1b2e" stroke-width="4" stroke-linejoin="round"/>
+                        </g>
+                    </g>
+                </svg>
+                <div id="notice" class="notice hidden"></div>
+                <div id="banner" class="banner hidden"></div>
+                <div id="overlay" class="overlay hidden">
+                    <div class="card">
+                        <h2 id="ov-title">ACERTARAM!</h2>
+                        <div class="ov-label">A RESPOSTA ERA</div>
+                        <div id="ov-word" class="ov-word">PALAVRA</div>
+                        <ol id="ov-winners" class="ov-winners"></ol>
+                        <p class="ov-next">Próxima rodada já já...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tray"></div>
+        </section>
+
+        <section class="hintbar">
+            <span class="hint-pill" id="category">CATEGORIA: ???</span>
+            <span class="hint-pill hidden" id="description"></span>
+        </section>
+
+        <section class="slots" id="slots"></section>
+
+        <section class="bottom">
+            <div class="mascot"><img src="assets/mascote.svg" alt="Pincelino, o mascote do jogo"></div>
+            <div class="instruction">
+                <h1>ADIVINHE NO CHAT!</h1>
+                <p id="info">ACERTOS 0/3 • ♥ 0/84 CURTIDAS = DICA</p>
+            </div>
+            <aside class="tools" id="tools"></aside>
+        </section>
+
+        <section class="chat" id="chat"></section>
+        <section id="gameover" class="gameover hidden">
+            <div class="go-card">
+                <h2>FIM DE JOGO!</h2>
+                <p class="go-sub">VOCÊS CHEGARAM NA FASE <b id="go-phase">1</b></p>
+                <p class="go-word">A PALAVRA ERA <b id="go-word"></b></p>
+                <div class="go-title">MELHORES DA PARTIDA</div>
+                <ol id="go-list" class="go-list"></ol>
+                <p class="go-next">RECOMEÇANDO NA FASE 1 EM <b id="go-count">0</b>s</p>
+            </div>
+        </section>
+        <div class="toast hidden" id="toast"></div>
+        <div class="conn hidden" id="conn">RECONECTANDO...</div>
+        <canvas id="confetti" width="1080" height="1920"></canvas>
+    </div>
+
+    <!-- Entrada de teste: só aparece com /?test=1 (fica fora da tela capturada) -->
+    <form id="testbox" class="testbox hidden" autocomplete="off">
+        <input id="test-user" value="Voce_Teste" aria-label="Nome do espectador">
+        <input id="test-input" placeholder="Digite um palpite de teste..." aria-label="Palpite">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="Drawer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

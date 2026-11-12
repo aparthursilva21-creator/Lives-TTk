@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "round": 4,
+    "record": 200
+  },
+  "users": {
+    "u_voce_teste": {
+      "username": "Voce_Teste",
+      "nickname": "",
+      "avatar": "",
+      "points": 200,
+      "hits": 2,
+      "lastHitAt": "2026-11-12T19:49:43.115Z"
+    }
+  },
+  "winners": [
+    {
+      "round": 1,
+      "word": "Vela",
+      "winners": [
+        {
+          "rank": 1,
+          "username": "Voce_Teste",
+          "points": 100
+        }
+      ],
+      "at": "2026-11-12T19:48:37.808Z"
+    },
+    {
+      "round": 3,
+      "word": "Flor",
+      "winners": [
+        {
+          "rank": 1,
+          "username": "Voce_Teste",
+          "points": 100
+        }
+      ],
+      "at": "2026-11-12T19:50:28.890Z"
+    }
+  ],
+  "run": {
+    "users": {
+      "u_voce_teste": {
+        "username": "Voce_Teste",
+        "avatar": "",
+        "points": 200,
+        "hits": 2
+      }
+    }
+  }
+}

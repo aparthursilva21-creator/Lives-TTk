@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel do Jogo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #130b25; color: #eee; font-size: 15px; }
+header { display: flex; align-items: center; gap: 14px; padding: 10px 18px; background: #24104a; border-bottom: 3px solid #ffd93b; flex-wrap: wrap; }
+header h1 { font-size: 20px; color: #ffd93b; }
+.badge { padding: 4px 12px; border-radius: 14px; background: #3b2470; font-weight: 700; }
+.badge.ok { background: #1f8f4e; } .badge.bad { background: #b3261e; }
+main { display: grid; grid-template-columns: 380px 1fr 380px; gap: 14px; padding: 14px; align-items: start; }
+@media (max-width: 1250px) { main { grid-template-columns: 1fr; } }
+section { background: #1d1038; border: 1px solid #3b2470; border-radius: 12px; padding: 12px; }
+h2 { font-size: 14px; letter-spacing: 1px; color: #b9a8e8; margin-bottom: 10px; text-transform: uppercase; }
+button { cursor: pointer; border: 0; border-radius: 8px; padding: 9px 12px; font-weight: 700; font-size: 14px; background: #4b2e9e; color: #fff; }
+button:hover { background: #6342c4; }
+button.go { background: #1f8f4e; } button.go:hover { background: #28b066; }
+button.warn { background: #c27a0a; } button.warn:hover { background: #e39412; }
+button.danger { background: #b3261e; } button.danger:hover { background: #d63a31; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.row { display: flex; gap: 8px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
+input, select { padding: 8px 10px; border-radius: 8px; border: 1px solid #4b3a80; background: #0f0820; color: #fff; font-size: 14px; }
+input[type=text] { flex: 1; min-width: 100px; }
+label { font-size: 13px; color: #cbbcf5; }
+.stat { display: grid; grid-template-columns: 120px 1fr; gap: 4px 8px; font-size: 14px; }
+.stat b { color: #ffd93b; word-break: break-word; }
+.secret { font-size: 28px; font-weight: 900; color: #3ddc84; letter-spacing: 2px; }
+.bar { height: 10px; background: #0f0820; border-radius: 6px; overflow: hidden; margin-top: 4px; } .bar div { height: 100%; background: #ffd93b; width: 0; transition: width .5s; }
+.preview { width: 356px; height: 634px; position: relative; overflow: hidden; border-radius: 10px; border: 2px solid #3b2470; margin: 0 auto; }
+.preview iframe { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; border: 0; transform: scale(.33); transform-origin: 0 0; pointer-events: none; }
+.feed { height: 330px; overflow-y: auto; font-size: 13px; }
+.feed div { padding: 3px 0; border-bottom: 1px solid #2d1d57; } .feed .t { color: #8d7fc0; } .feed .win { color: #3ddc84; font-weight: 700; } .feed .gift { color: #ffd93b; font-weight: 700; } .feed .sys { color: #ff9a9a; }
+ol, ul { list-style: none; font-size: 14px; } li { padding: 3px 0; border-bottom: 1px solid #2d1d57; display: flex; justify-content: space-between; gap: 8px; }
+.msg { margin-top: 8px; padding: 8px; border-radius: 8px; background: #3b2470; display: none; } .msg.show { display: block; } .msg.err { background: #b3261e; }
+.alert { background: #b3261e; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: 700; display: none; }
+small.hint { display: block; color: #9a8cc4; margin-top: 4px; font-size: 12px; line-height: 1.35; }
+</style>
+</head>
+<body>
+<header>
+    <h1>Painel do Jogo</h1>
+    <span class="badge" id="b-conn">Desconectado</span>
+    <span class="badge" id="b-live">Live: parada</span>
+    <span class="badge" id="b-mode">Modo: -</span>
+    <span class="badge" id="b-tt">TikTok: desconectado</span>
+</header>
+<main>
+    <!-- COLUNA 1: o que o público vê + estado -->
+    <div style="display:grid;gap:14px">
+        <section>
+            <h2>Tela do público (ao vivo)</h2>
+            <div class="preview"><iframe id="preview" title="Prévia da tela do jogo"></iframe></div>
+            <small class="hint">Esta é a tela que vai para o TikTok. Ela abre também em <b>http://localhost:3000</b>.</small>
+        </section>
+        <section>
+            <h2>Rodada agora</h2>
+            <div class="alert" id="alert"></div>
+            <div class="stat">
+                <span>Situação</span><b id="s-phase">-</b>
+                <span>Fase</span><b id="s-round">-</b>
+                <span>Tempo</span><b id="s-time">-</b>
+                <span>Categoria</span><b id="s-cat">-</b>
+                <span>Acertos</span><b id="s-hits">-</b>
+                <span>Curtidas p/ dica</span><b id="s-likes">-</b>
+                <span>Palavras</span><b id="s-words">-</b>
+            </div>
+            <div style="margin-top:10px;color:#b9a8e8;font-size:12px">PALAVRA SECRETA (só você vê)</div>
+            <div class="secret" id="s-secret">-</div>
+            <div class="bar"><div id="s-prog"></div></div>
+            <small class="hint">Barra = quanto do desenho já foi feito.</small>
+        </section>
+    </div>
+
+    <!-- COLUNA 2: controles -->
+    <div style="display:grid;gap:14px">
+        <section>
+            <h2>1. Comece por aqui</h2>
+            <div class="grid3">
+                <button class="go" data-cmd="start">▶ Iniciar live</button>
+                <button class="danger" data-cmd="stop" data-confirm="Parar a live? A rodada atual será cancelada.">■ Parar live</button>
+                <button class="warn" data-cmd="resetGame" data-payload='{"confirm":true}' data-confirm="Recomeçar o jogo na FASE 1?">↺ Recomeçar na fase 1</button>
+            </div>
+            <div class="row">
+                <input type="text" id="tt-user" placeholder="Seu @ do TikTok (sem o @)">
+                <button class="go" id="tt-connect">Conectar comentários reais</button>
+                <button data-cmd="disconnectTikTok">Desconectar</button>
+            </div>
+            <small class="hint">Sem conectar, o jogo roda em modo TESTE (palpites digitados aqui embaixo). Conecte só depois que a sua live estiver no ar.</small>
+        </section>
+
+        <section>
+            <h2>2. Rodada</h2>
+            <div class="grid3">
+                <button class="go" data-cmd="startRound">Iniciar rodada</button>
+                <button data-cmd="pause">Pausar</button>
+                <button data-cmd="resume">Retomar</button>
+                <button class="warn" data-cmd="skip" data-confirm="Pular esta palavra?">Pular palavra</button>
+                <button data-cmd="endRound" data-confirm="Finalizar a rodada agora?">Finalizar rodada</button>
+                <button data-cmd="nextRound">Próxima rodada</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Desenho e dicas</h2>
+            <div class="grid3">
+                <button data-cmd="restartDrawing">Reiniciar desenho</button>
+                <button data-cmd="completeDrawing">Desenho pronto</button>
+                <button data-cmd="turbo">Pincel turbo</button>
+                <button data-cmd="revealLetter">Revelar letra</button>
+                <button data-cmd="hint">Mostrar dica</button>
+            </div>
+            <div class="row"><label>Velocidade do desenho</label><input type="range" id="speed" min="0.25" max="4" step="0.25" value="1"><b id="speed-v">1x</b></div>
+        </section>
+
+        <section>
+            <h2>4. Configurações</h2>
+            <div class="row">
+                <label>Tempo da rodada</label>
+                <select id="seconds"><option>30</option><option>45</option><option>60</option><option>90</option><option>120</option><option>180</option></select><label>s</label>
+                <label><input type="checkbox" id="auto"> Modo automático</label>
+                <label>Modo:</label>
+                <select id="mode"><option value="test">Teste</option><option value="tiktok">TikTok</option></select>
+            </div>
+            <small class="hint">Tempo novo vale a partir da próxima rodada. Se ninguém acertar no tempo, a partida acaba e volta para a fase 1.</small>
+        </section>
+
+        <section>
+            <h2>5. Testar sem live</h2>
+            <div class="row">
+                <input type="text" id="g-user" value="Voce_Teste" style="max-width:150px">
+                <input type="text" id="g-text" placeholder="Palpite de teste (Enter para enviar)">
+                <button id="g-send">Enviar</button>
+            </div>
+            <div class="row">
+                <select id="g-gift"></select>
+                <button id="g-giftbtn">Simular presente</button>
+                <button id="g-likes">+84 curtidas</button>
+            </div>
+            <small class="hint">Digite a resposta (veja a palavra secreta ao lado) com nomes diferentes para simular vários jogadores.</small>
+        </section>
+
+        <section>
+            <h2>6. Zerar coisas (pede confirmação)</h2>
+            <div class="grid">
+                <button class="danger" data-cmd="resetScores" data-payload='{"confirm":true}' data-confirm="Zerar o ranking geral de pontos? (o recorde é mantido)">Zerar ranking geral</button>
+                <button class="danger" data-cmd="resetHistory" data-payload='{"confirm":true}' data-confirm="Liberar TODAS as palavras para sortear de novo? Uma cópia do histórico é guardada.">Reiniciar histórico de palavras</button>
+            </div>
+        </section>
+        <div class="msg" id="msg"></div>
+    </div>
+
+    <!-- COLUNA 3: acompanhar -->
+    <div style="display:grid;gap:14px">
+        <section><h2>O que está acontecendo (comentários e eventos)</h2><div class="feed" id="feed"></div></section>
+        <section><h2>Ranking geral (top 10)</h2><ol id="rank"></ol></section>
+        <section><h2>Últimas palavras</h2><ul id="hist"></ul></section>
+    </div>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
